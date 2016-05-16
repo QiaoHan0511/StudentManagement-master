@@ -86,19 +86,7 @@ public class UpdateStudent extends AppCompatActivity {
         etEmail = (EditText) findViewById(R.id.etEmail);
 
 
-//        String Male = rbSMale.getText().toString();
-//        String Female = rbsFemale.getText().toString();
-//        String FTMK = rbFTMK.getText().toString();
-//        String FKP = rbFKP.getText().toString();
-//        String FKEKK = rbFKEKK.getText().toString();
-//        String FKE = rbFKE.getText().toString();
-//        String FTK = rbFTK.getText().toString();
-//        String FKM = rbFKM.getText().toString();
-//        String FPTT = rbFPTT.getText().toString();
-//        String Malay = rbMalay.getText().toString();
-//        String Cina = rbCina.getText().toString();
-//        String India = rbIndia.getText().toString();
-//        String Others = rbOthers.getText().toString();
+
 
         etID.setText(sID);
         etName.setText(sName);
@@ -111,8 +99,8 @@ public class UpdateStudent extends AppCompatActivity {
 
         if(sGender.equals("Male"))
             rbsGender.check(R.id.rbSMale);
-        else
-        rbsGender.check(R.id.rbSFemale);
+        else if(sGender.equals("Female"))
+            rbsGender.check(R.id.rbSFemale);
 
         if(sFaculty.equals("FTMK"))
             rbsFaculty.check(R.id.rbFTMK);
@@ -131,72 +119,13 @@ public class UpdateStudent extends AppCompatActivity {
 
         if(sRace.equals("Malay"))
             rbsRace.check(R.id.rbMalay);
-        else if(sFaculty.equals("Cina"))
-            rbsFaculty.check(R.id.rbFKP);
-        else if(sFaculty.equals("FKEKK"))
-            rbsFaculty.check(R.id.rbFKEKK);
-        else if(sFaculty.equals("FKE"))
-            rbsFaculty.check(R.id.rbFKE);
-        else if(sFaculty.equals("FTK"))
-            rbsFaculty.check(R.id.rbFTK);
+        else if(sRace.equals("Cina"))
+            rbsRace.check(R.id.rbCina);
+        else if(sRace.equals("India"))
+            rbsRace.check(R.id.rbIndia);
+        else if(sRace.equals("Others"))
+            rbsRace.check(R.id.rbOthers);
 
-        if (sFaculty == "FTMK") {
-            rbFTMK.setChecked(true);
-        } else if (sFaculty == "FKP") {
-            rbFKP.setChecked(true);
-        } else if (sFaculty == "FKEKK") {
-            rbFKEKK.setChecked(true);
-        } else if (sFaculty == "FKE") {
-            rbFKE.setChecked(true);
-        } else if (sFaculty == "FTK") {
-            rbFTK.setChecked(true);
-        } else if (sFaculty == "FKM") {
-            rbFKM.setChecked(true);
-        } else if (sFaculty == "FPTT") {
-            rbFPTT.setChecked(true);
-        }
-
-        if (sRace == "Malay") {
-            rbMalay.setChecked(true);
-        } else if (sRace == "Cina") {
-            rbCina.setChecked(true);
-        } else if (sRace == "India") {
-            rbIndia.setChecked(true);
-        } else if (sRace == "Others") {
-            rbOthers.setChecked(true);
-        }
-
-//        if (sGender == Male) {
-//            rbSMale.setChecked(true);
-//        } else if (sGender == Female) {
-//            rbsFemale.setChecked(true);
-//        }
-//
-//        if (sFaculty == FTMK) {
-//            rbFTMK.setChecked(true);
-//        } else if (sFaculty == FKP) {
-//            rbFKP.setChecked(true);
-//        } else if (sFaculty == FKEKK) {
-//            rbFKEKK.setChecked(true);
-//        } else if (sFaculty == FKE) {
-//            rbFKE.setChecked(true);
-//        } else if (sFaculty == FTK) {
-//            rbFTK.setChecked(true);
-//        } else if (sFaculty == FKM) {
-//            rbFKM.setChecked(true);
-//        } else if (sFaculty == FPTT) {
-//            rbFPTT.setChecked(true);
-//        }
-//
-//        if (sRace == Malay) {
-//            rbMalay.setChecked(true);
-//        } else if (sRace == Cina) {
-//            rbCina.setChecked(true);
-//        } else if (sRace == India) {
-//            rbIndia.setChecked(true);
-//        } else if (sRace == Others) {
-//            rbOthers.setChecked(true);
-//        }
 
 
         final Button btnUpdate = (Button) findViewById(R.id.btnUpdate);
@@ -206,88 +135,92 @@ public class UpdateStudent extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateStudent.this);
-                builder.setMessage("Are you sure want to update?")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new Dialog.OnClickListener() {
+
+                if (validate()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(UpdateStudent.this);
+                    builder.setMessage("Are you sure want to update?")
+                            .setCancelable(false)
+                            .setPositiveButton("Yes", new Dialog.OnClickListener() {
 
 
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                //optional
-                                final ProgressDialog progressDialog = new ProgressDialog(UpdateStudent.this);
-                                progressDialog.setMessage("Loading...");
-                                progressDialog.setCancelable(false);
-                                progressDialog.show();
-                                //optional
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //optional
+                                    final ProgressDialog progressDialog = new ProgressDialog(UpdateStudent.this);
+                                    progressDialog.setMessage("Loading...");
+                                    progressDialog.setCancelable(false);
+                                    progressDialog.show();
+                                    //optional
 
-                                final RadioButton selectRadio = (RadioButton) findViewById(rbsGender.getCheckedRadioButtonId());
-                                final RadioButton selectRadioF = (RadioButton) findViewById(rbsFaculty.getCheckedRadioButtonId());
-                                final RadioButton selectRadioR = (RadioButton) findViewById(rbsRace.getCheckedRadioButtonId());
+                                    final RadioButton selectRadio = (RadioButton) findViewById(rbsGender.getCheckedRadioButtonId());
+                                    final RadioButton selectRadioF = (RadioButton) findViewById(rbsFaculty.getCheckedRadioButtonId());
+                                    final RadioButton selectRadioR = (RadioButton) findViewById(rbsRace.getCheckedRadioButtonId());
 
-                                final String sID = etID.getText().toString();
-                                final String sName = etName.getText().toString();
-                                final String sIC = etIC.getText().toString();
-                                final String sGender = selectRadio.getText().toString();
-                                final String sFaculty = selectRadioF.getText().toString();
-                                final String sRace = selectRadioR.getText().toString();
-                                final String sDate = etDOB.getText().toString();
-                                final String sTel = etTel.getText().toString();
-                                final String sEmail = etEmail.getText().toString();
+                                    final String sID = etID.getText().toString();
+                                    final String sName = etName.getText().toString();
+                                    final String sIC = etIC.getText().toString();
+                                    final String sGender = selectRadio.getText().toString();
+                                    final String sFaculty = selectRadioF.getText().toString();
+                                    final String sRace = selectRadioR.getText().toString();
+                                    final String sDate = etDOB.getText().toString();
+                                    final String sTel = etTel.getText().toString();
+                                    final String sEmail = etEmail.getText().toString();
 
-                                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                                    @Override
-                                    public void onResponse(String response) {
-                                        try {
-                                            JSONObject jsonResponse = new JSONObject(response);
-                                            boolean success = jsonResponse.getBoolean("success");
+                                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                                        @Override
+                                        public void onResponse(String response) {
+                                            try {
+                                                JSONObject jsonResponse = new JSONObject(response);
+                                                boolean success = jsonResponse.getBoolean("success");
 
-                                            if (success) {
-                                                //optional
-                                                progressDialog.dismiss();
+                                                if (success) {
+                                                    //optional
+                                                    progressDialog.dismiss();
 
-                                                final Intent intent = new Intent(UpdateStudent.this, ManagePage.class);
-                                                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateStudent.this);
-                                                builder.setMessage("Updated!")
-                                                        .setPositiveButton("Okay", new Dialog.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(DialogInterface dialog, int which) {
-                                                                UpdateStudent.this.startActivity(intent);
-                                                            }
-                                                        });
-                                                builder.create()
-                                                        .show();
+                                                    final Intent intent = new Intent(UpdateStudent.this, ManagePage.class);
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(UpdateStudent.this);
+                                                    builder.setMessage("Updated!")
+                                                            .setPositiveButton("Okay", new Dialog.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                    UpdateStudent.this.startActivity(intent);
+                                                                }
+                                                            });
+                                                    builder.create()
+                                                            .show();
 
 
-                                            } else {
-                                                //optional
-                                                progressDialog.dismiss();
+                                                } else {
+                                                    //optional
+                                                    progressDialog.dismiss();
 
-                                                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateStudent.this);
-                                                builder.setMessage("Update failed!")
-                                                        .setNegativeButton("Retry", null)
-                                                        .create()
-                                                        .show();
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(UpdateStudent.this);
+                                                    builder.setMessage("Update failed!")
+                                                            .setNegativeButton("Retry", null)
+                                                            .create()
+                                                            .show();
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
                                             }
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
                                         }
-                                    }
-                                };
-                                UpdateStudentRequest updateStudentRequest = new UpdateStudentRequest(sID, sName, sIC, sGender, sFaculty, sRace, sDate, sTel, sEmail, responseListener);
-                                RequestQueue queue = Volley.newRequestQueue(UpdateStudent.this);
-                                queue.add(updateStudentRequest);
+                                    };
+                                    UpdateStudentRequest updateStudentRequest = new UpdateStudentRequest(sID, sName, sIC, sGender, sFaculty, sRace, sDate, sTel, sEmail, responseListener);
+                                    RequestQueue queue = Volley.newRequestQueue(UpdateStudent.this);
+                                    queue.add(updateStudentRequest);
 
-                            }
-                        });
-                builder.setNegativeButton("No", new Dialog.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-                builder.create()
-                        .show();
+                                }
+                            });
+                    builder.setNegativeButton("No", new Dialog.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.create()
+                            .show();
+                }
+
 
             }
 
@@ -342,91 +275,90 @@ public class UpdateStudent extends AppCompatActivity {
         setDate.setText(sdf.format(myCalendar.getTime()));
     }
 
+    public boolean validate(){
+        rbsGender = (RadioGroup) findViewById(R.id.rbGender);
+        rbsFaculty = (RadioGroup) findViewById(R.id.rbFaculty);
+        rbsRace = (RadioGroup) findViewById(R.id.rbRace);
+        String sID = etID.getText().toString();
+        String sName = etName.getText().toString();
+        String sIC = etIC.getText().toString();
+//        String sGender = selectRadio.getText().toString();
+//        String sFaculty = selectRadioF.getText().toString();
+//        String sRace = selectRadioR.getText().toString();
+        String sDate = etDOB.getText().toString();
+        String sTel = etTel.getText().toString();
+        String sEmail = etEmail.getText().toString();
+
+        String namePattern = "[a-zA-Z ]+";
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        String idPattern ="^([B]+[0-9+]+)$";
+        String ICPattern ="\\d{6}[\\-]\\d{2}[\\-]\\d{4}";
+        String TelPattern ="\\d{3}[\\-]\\d{7}";
 
 
-//    public boolean validate(){
-//        rbsGender = (RadioGroup) findViewById(R.id.rbGender);
-//        rbsFaculty = (RadioGroup) findViewById(R.id.rbFaculty);
-//        rbsRace = (RadioGroup) findViewById(R.id.rbRace);
-//        String sID = etID.getText().toString();
-//        String sName = etName.getText().toString();
-//        String sIC = etIC.getText().toString();
-////        String sGender = selectRadio.getText().toString();
-////        String sFaculty = selectRadioF.getText().toString();
-////        String sRace = selectRadioR.getText().toString();
-//        String sDate = etDate.getText().toString();
-//        String sTel = etTel.getText().toString();
-//        String sEmail = etEmail.getText().toString();
-//
-//
-//        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-//        String idPattern ="^([B]+[0-9+]+)$";
-//        String ICPattern ="\\d{6}[\\-]\\d{2}[\\-]\\d{4}";
-//        String TelPattern ="\\d{3}[\\-]\\d{7}";
-//
-//
-//        boolean valid = true;
-//        if(!sID.matches(idPattern)){
-//            valid = false;
-//            etID.setError("Format: B031410111");
-//        }
-//        else
-//        {
-//            etID.setError(null);
-//        }
-//        if(sName.isEmpty()){
-//            valid = false;
-//            etName.setError("Name can't be empty");
-//        }
-//        else
-//        {
-//            etName.setError(null);
-//        }
-//        if(!sIC.matches(ICPattern)){
-//            valid = false;
-//            etIC.setError("Format: 980201-02-5421");
-//        }
-//        else
-//        {
-//            etIC.setError(null);
-//        }
-//        if(rbsGender.getCheckedRadioButtonId()== -1){
-//            valid = false;
-//            Toast.makeText(getApplicationContext(), "Please select Gender", Toast.LENGTH_SHORT).show();
-//        }
-//        if(rbsFaculty.getCheckedRadioButtonId()== -1){
-//            valid = false;
-//            Toast.makeText(getApplicationContext(), "Please select Faculty", Toast.LENGTH_SHORT).show();
-//        }
-//        if(rbsRace.getCheckedRadioButtonId()== -1){
-//            valid = false;
-//            Toast.makeText(getApplicationContext(), "Please select Race", Toast.LENGTH_SHORT).show();
-//        }
-//        if(sDate.isEmpty()){
-//            valid = false;
-//            etDate.setError("Date of Birth can't be empty");
-//        }
-//        else
-//        {
-//            etDate.setError(null);
-//        }
-//        if(!sTel.matches(TelPattern)){
-//            valid = false;
-//            etTel.setError("Format: 012-3456789");
-//        }
-//        else
-//        {
-//            etTel.setError(null);
-//        }
-//        if(sEmail.isEmpty()||!sEmail.matches(emailPattern)){
-//            valid = false;
-//            etEmail.setError("Invalid Email Address");
-//        }
-//        else
-//        {
-//            etEmail.setError(null);
-//        }
-//        return valid;
-//    }
+        boolean valid = true;
+        if(!sID.matches(idPattern)){
+            valid = false;
+            etID.setError("Format: B031410111");
+        }
+        else
+        {
+            etID.setError(null);
+        }
+        if(sName.isEmpty()||!sName.matches(namePattern)){
+            valid = false;
+            etName.setError("Invalid Full Name");
+        }
+        else
+        {
+            etName.setError(null);
+        }
+        if(!sIC.matches(ICPattern)){
+            valid = false;
+            etIC.setError("Format: 980201-02-5421");
+        }
+        else
+        {
+            etIC.setError(null);
+        }
+        if(rbsGender.getCheckedRadioButtonId()== -1){
+            valid = false;
+            Toast.makeText(getApplicationContext(), "Please select Gender", Toast.LENGTH_SHORT).show();
+        }
+        if(rbsFaculty.getCheckedRadioButtonId()== -1){
+            valid = false;
+            Toast.makeText(getApplicationContext(), "Please select Faculty", Toast.LENGTH_SHORT).show();
+        }
+        if(rbsRace.getCheckedRadioButtonId()== -1){
+            valid = false;
+            Toast.makeText(getApplicationContext(), "Please select Race", Toast.LENGTH_SHORT).show();
+        }
+        if(sDate.isEmpty()){
+            valid = false;
+            etDOB.setError("Date of Birth can't be empty");
+        }
+        else
+        {
+            etDOB.setError(null);
+        }
+        if(!sTel.matches(TelPattern)){
+            valid = false;
+            etTel.setError("Format: 012-3456789");
+        }
+        else
+        {
+            etTel.setError(null);
+        }
+        if(sEmail.isEmpty()||!sEmail.matches(emailPattern)){
+            valid = false;
+            etEmail.setError("Invalid Email Address");
+        }
+        else
+        {
+            etEmail.setError(null);
+        }
+        return valid;
+    }
+
 
 }

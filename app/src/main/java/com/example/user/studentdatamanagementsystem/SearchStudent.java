@@ -38,7 +38,7 @@ public class SearchStudent extends AppCompatActivity {
                 //convert to string
                 final String sID = etSearchID.getText().toString();
 
-                if(validate()){
+                if (validate()) {
                     //optional
                     final ProgressDialog progressDialog = new ProgressDialog(SearchStudent.this);
                     progressDialog.setMessage("Loading...");
@@ -84,7 +84,7 @@ public class SearchStudent extends AppCompatActivity {
                                     intent.putExtra("sRace", sRace);
                                     intent.putExtra("sDOB", sDOB);
                                     intent.putExtra("sTelNo", sTelNo);
-                                    intent.putExtra("sEmail",sEmail);
+                                    intent.putExtra("sEmail", sEmail);
 
                                     //optional
                                     progressDialog.dismiss();
@@ -100,8 +100,7 @@ public class SearchStudent extends AppCompatActivity {
                                             .create()
                                             .show();
                                 }
-                            }
-                            catch(JSONException e){
+                            } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
@@ -120,14 +119,26 @@ public class SearchStudent extends AppCompatActivity {
 
     }
 
-    public boolean validate(){
+    public boolean validate() {
         String sID = etSearchID.getText().toString();
 
+        String idPattern = "^([B]+[0-9+]+)$";
+
         boolean valid = true;
-        if(sID.isEmpty()){
+        if (!sID.matches(idPattern)) {
+            valid = false;
+            etSearchID.setError("Format: B031410111");
+        } else {
+            etSearchID.setError(null);
+        }
+
+
+        if (sID.isEmpty()) {
             valid = false;
             etSearchID.setError("Please insert a Student ID.");
         }
         return valid;
     }
+
 }
+
