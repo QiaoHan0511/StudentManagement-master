@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">StudentDataManagementSystem</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="emptyString" />
+    <string name="title_activity_adduser">adduser</string>
+
+
+    <string name="gender_prompt">Gender</string>
+
+    <string-array name="gender_arrays">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string name="fac_prompt">Faculty</string>
+
+    <string-array name="fac_arrays">
+        <item>FTMK</item>
+        <item>FKP</item>
+        <item>FKEKK</item>
+        <item>FKE</item>
+        <item>FTK</item>
+        <item>FKM</item>
+        <item>FPTT</item>
+    </string-array>
+
+    <string name="race_prompt">Race</string>
+
+    <string-array name="race_arrays">
+        <item>Malay</item>
+        <item>Cina</item>
+        <item>India</item>
+        <item>Others</item>
+    </string-array>
+
+</resources>
